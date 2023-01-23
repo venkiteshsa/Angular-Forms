@@ -8,15 +8,18 @@ import { RegisterService } from "./register.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  environments = ['Java', 'Python', 'C', 'C++', 'C#']
+  environments =  ['Development', 'Pre-Production', 'Production']
   environmentHasError = true
 
-  sources = ['MongoDB', 'SSIS']
+  sources = ['Dropbox', 'MongoDB', 'SSIS', 'Blob Storage', 'Azure Storage']
   sourceHasError = true
+
+  handler = ['Event Hub', 'SSIS', 'Service Bus', 'Docker', 'Storage Queue']
+  handlerHasError = true
 
   submitted = false
 
-  projectModel = new Project('', 'default', 'default')
+  projectModel = new Project('', '', '', 'default', 'default', 'default')
 
   constructor(private registerservice: RegisterService) {}
 
@@ -33,6 +36,15 @@ export class AppComponent {
       this.sourceHasError = true;
     } else {
       this.sourceHasError = false;
+    }
+
+  }
+
+  validateHandler(value: string) {
+    if(value == 'default') {
+      this.handlerHasError = true;
+    } else {
+      this.handlerHasError = false;
     }
 
   }

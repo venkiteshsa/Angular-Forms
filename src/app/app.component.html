@@ -4,11 +4,27 @@
   <form #projectForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
 
     <div class="form-group">
-      <label>Name</label>
+      <label>User Name</label>
       <input type="text" #name="ngModel" required  
         class="form-control" [class.is-invalid]="name.invalid && name.touched"  
-        name="name" [(ngModel)]="projectModel.name">
-      <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
+        name="username" [(ngModel)]="projectModel.username">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">Username is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Project Name</label>
+      <input type="text" #projectname="ngModel" required  
+        class="form-control" [class.is-invalid]="projectname.invalid && projectname.touched"  
+        name="projectname" [(ngModel)]="projectModel.projectname">
+      <small class="text-danger" [class.d-none]="projectname.valid || projectname.untouched">Project name is required</small>
+    </div>
+
+    <div class="form-group">
+      <label>Stage Name</label>
+      <input type="text" #stagename="ngModel" required  
+        class="form-control" [class.is-invalid]="stagename.invalid && stagename.touched"  
+        name="stagename" [(ngModel)]="projectModel.stagename">
+      <small class="text-danger" [class.d-none]="stagename.valid || stagename.untouched">Stage name is required</small>
     </div>
 
 
@@ -20,18 +36,29 @@
         name="environment" [(ngModel)]="projectModel.environment">
           <option *ngFor="let env of environments">{{ env }}</option>>
       </select>
-      <small class="text-danger" [class.d-none]="!environmentHasError || environment.untouched">Please select environment</small>
+      <small class="text-danger" [class.d-none]="!environmentHasError || environment.untouched">Please select Environment</small>
     </div>
 
     <div class="form-group">
-      <label>Source</label>
+      <label>Event Source</label>
       <br>
-      <select (blur)="validateSource(source.value)" (change)="validateSource(source.value)" #source="ngModel" required  
-        [class.is-invalid]="sourceHasError && source.touched" class="custom-select" 
-        name="source" [(ngModel)]="projectModel.source">
+      <select (blur)="validateSource(eventsource.value)" (change)="validateSource(eventsource.value)" #eventsource="ngModel" required  
+        [class.is-invalid]="sourceHasError && eventsource.touched" class="custom-select" 
+        name="source" [(ngModel)]="projectModel.eventsource">
           <option *ngFor="let src of sources">{{ src }}</option>>
       </select>
-      <small class="text-danger" [class.d-none]="!sourceHasError || source.untouched">Please select source</small>
+      <small class="text-danger" [class.d-none]="!sourceHasError || eventsource.untouched">Please select Event source</small>
+    </div>
+
+    <div class="form-group">
+      <label>Event Handler</label>
+      <br>
+      <select (blur)="validateHandler(eventhandler.value)" (change)="validateHandler(eventhandler.value)" #eventhandler="ngModel" required  
+        [class.is-invalid]="handlerHasError && eventhandler.touched" class="custom-select" 
+        name="handler" [(ngModel)]="projectModel.eventhandler">
+          <option *ngFor="let hnd of handler">{{ hnd }}</option>>
+      </select>
+      <small class="text-danger" [class.d-none]="!handlerHasError || eventhandler.untouched">Please select Event handler</small>
     </div>
 
     <button class="btn btn-primary" type="submit" [disabled]="projectForm.form.invalid || environmentHasError">Submit</button> 

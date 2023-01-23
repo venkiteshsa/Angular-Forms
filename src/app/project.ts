@@ -1,7 +1,10 @@
 export class Project {
     constructor(
-        public name: string,
+        public username: string,
+        public projectname: string,
+        public stagename: string,
         public environment: string,   
-        public source: string,
+        public eventsource: string,
+        public eventhandler: string,
     ) {}
 }
