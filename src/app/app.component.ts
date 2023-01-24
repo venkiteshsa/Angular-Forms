@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Project } from './project';
 import { RegisterService } from "./register.service";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
   handler = ['Event Hub', 'SSIS', 'Service Bus', 'Docker', 'Storage Queue']
   handlerHasError = true
 
-  submitted = false
+  showMSG: boolean = false
 
   projectModel = new Project('', '', '', 'default', 'default', 'default')
 
@@ -49,13 +50,17 @@ export class AppComponent {
 
   }
 
-  onSubmit() {
-    this.submitted = true;
+  onSubmit(projectForm: NgForm) {
+    
     this.registerservice.register(this.projectModel)
       .subscribe(
-              data => console.log("Success", data),
-              error => console.log("Error", error)
-    ) 
+              data => {
+                console.log("Success", data), 
+                this.showMSG = true;
+              },
+              error => console.log("Error", error),
+              ) 
+    projectForm.form.reset()
   }
   
 }
